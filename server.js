@@ -9,12 +9,12 @@ const server = http.createServer(app);
 // สร้าง Socket.IO พร้อม config CORS
 const io = new Server(server, {
   cors: {
-    origin: "https://watershop25.tsmiledev.com",  // หรือ * ถ้าทดสอบ
+    origin: ["https://watershop25.tsmiledev.com"],  // หรือ * ถ้าทดสอบ
     methods: ["GET", "POST"],
     credentials: true
   }
 });
-
+  
 io.on("connection", (socket) => {
   console.log("Client connected:", socket.id);
   socket.emit("hello", "สวัสดีจาก Server");
@@ -22,6 +22,12 @@ io.on("connection", (socket) => {
   socket.on("message", (msg) => {
     console.log("Received:", msg);
   });
+});
+
+// รับ API POST จาก CodeIgniter
+app.post('/new-order', (req, res) => {
+  io.emit('new-order');
+  res.status(200).send('Order broadcasted');
 });
 
 server.listen(4002, () => {
