@@ -9,7 +9,10 @@ const server = http.createServer(app);
 // สร้าง Socket.IO พร้อม config CORS
 const io = new Server(server, {
   cors: {
-    origin: ["https://watershop25.tsmiledev.com"],  // หรือ * ถ้าทดสอบ
+    origin: [
+      "https://watershop25.tsmiledev.com",
+      "http://127.0.0.1:3007"
+    ],  // หรือ * ถ้าทดสอบ
     methods: ["GET", "POST"],
     credentials: true
   }
@@ -28,6 +31,11 @@ io.on("connection", (socket) => {
 app.post('/new-order', (req, res) => {
   io.emit('new-order');
   res.status(200).send('Order broadcasted');
+});
+
+app.post('/update-notfica', (req, res) => {
+  io.emit('update-notfica');
+  res.status(200).send('UpdateNotification');
 });
 
 server.listen(4002, () => {
