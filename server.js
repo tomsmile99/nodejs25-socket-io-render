@@ -38,6 +38,11 @@ app.post('/update-notfica', (req, res) => {
   res.status(200).send('UpdateNotification');
 });
 
+app.post('/updatelv2-notfica', (req, res) => {
+  io.emit('updatelv2-notfica');
+  res.status(200).send('UpdateLv2 Notification');
+});
+
 server.listen(4002, () => {
   console.log("Socket.IO server running on port 4002");
 });
