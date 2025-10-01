@@ -10,6 +10,7 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: [
+      "https://isr.sakerp.org",
       "https://watershop25.tsmiledev.com",
       "http://127.0.0.1:3007"
     ],  // หรือ * ถ้าทดสอบ
